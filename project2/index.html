@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form onsubmit="savetodb(event)">
+            <label for="expence">Expence amount</label>
+            <input type="text" id="expence">
+            <label for="dis">discription</label>
+            <input type="text" id="dis">
+            <label for="cat">choose category</label>
+            <input type="text" id="cat">
+            <input type="submit" value="submit">
+        </form>
+        <ul id="details"></ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded",()=>{
+        axios.get("https://crudcrud.com/api/18b2c6b8682d40e1aa92f8f3d7571e4e/expencetracker")
+        .then((resolve)=>{
+        for(var i=0;i<resolve.data.length;i++)
+        {
+            showDetailsOnscreen(resolve.data[i])
+        }
+        })
+        });
+    
+        function savetodb(event){
+            event.preventDefault();
+            const amount=event.target.expence.value;
+            const discription=event.target.dis.value;
+            const category=event.target.cat.value;
+            const obj={
+                amount,
+                discription,
+                category
+            }
+           console.log(amount);
+           console.log(discription);
+           console.log(category);
+           axios.post("https://crudcrud.com/api/18b2c6b8682d40e1aa92f8f3d7571e4e/expencetracker",obj)
+           .then((resolve)=>
+           showDetailsOnscreen(resolve.data))
+           //showDetailsOnscreen(resolve.data))
+           .catch((err)=>
+           document.body.innerHTML=document.body.innerHTML+"<h4>something went wrong</h4>"
+           );
+
+
+        }
+        function showDetailsOnscreen(detail)
+        {
+            let deletebtn=document.createElement('button');
+            let editbtn=document.createElement('button');
+            deletebtn.appendChild(document.createTextNode('delete'));
+            editbtn.appendChild(document.createTextNode('edit'));
+            let parent=document.getElementById('details');
+            let child=`<li id=${detail._id} >${detail.amount}-${detail.category}-${detail.discription}
+  <button onclick=deleteitem('${detail._id}')>delete</button>
+  <button onclick=edititem('${detail._id}','${detail.amount}','${detail.category}','${detail.discription}')>edit</button>
+  </li>`;
+  parent.innerHTML=parent.innerHTML+child;
+    }
+    function deleteitem(id){
+        axios.delete(`https://crudcrud.com/api/18b2c6b8682d40e1aa92f8f3d7571e4e/expencetracker/${id}`)
+        .then((resolve)=>removeDetailsfromScreen(id))
+        .catch((err)=>console.log(err))
+    }
+    function removeDetailsfromScreen(id)
+    {
+        let parent=document.getElementById('details');
+        let child=document.getElementById(id);
+        parent.removeChild(child);
+    }
+    function edititem(id,amount,discription,category){
+        document.getElementById("expence").value=amount;
+        document.getElementById("dis").value=discription;
+        document.getElementById("cat").value=category;
+        axios.delete(`https://crudcrud.com/api/18b2c6b8682d40e1aa92f8f3d7571e4e/expencetracker/${id}`)
+        .then((resolve)=> removeDetailsfromScreen(id))
+        .catch((err)=>console.log(err));
+
+    }
+    </script>
+</body>
+</html>
