@@ -1,0 +1,30 @@
+body{
+    margin: 0;
+    background-image: url("istockphoto-1350046657-170667a.jpg");
+   background-size: cover;
+    background-repeat: no-repeat;
+}
+.container-fluid{
+   
+   padding:50px;
+   
+}
+.col-sm-4{
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid ;
+   
+}
+.border{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color:aquamarine;
+    border-radius: 5px;
+}
+.list{
+    padding:12px;
+}
+.details{
+ color: white;
+}

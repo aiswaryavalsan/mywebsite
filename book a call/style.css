@@ -1,0 +1,30 @@
+body{
+    margin:0;
+    display:flex;
+    justify-content: center;
+    height: 100vh;
+   /* align-items: center;
+    text-align: center;*/
+    background-color: #f0f8ff;
+    font-family: cursive;
+    background: url("https://media.istockphoto.com/vectors/digital-communication-technical-support-concept-vector-id1264232949?k=20&m=1264232949&s=612x612&w=0&h=oeH9JtEE1XWrgd25nqmImissgP4VlNjaxsrCh4SwCX4=");
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+   
+}
+h1{
+    align-items: center;
+    text-align: center  ;
+}
+.form{
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.3);
+    border-radius: 10px;
+    margin: 10px;
+    height: 70%;
+}
+input{
+    width:100%
+}
